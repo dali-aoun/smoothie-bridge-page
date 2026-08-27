@@ -541,14 +541,8 @@
     <p>Enter your email and I'll send you 7 ready-to-blend recipes right now — completely free, no strings attached.</p>
 
     <form class="email-form"
-          action="https://formsubmit.co/mohamedali.benaoun@gmail.com"
+          action="/api/subscribe"
           method="POST">
-      <!-- Formsubmit hidden fields -->
-      <input type="hidden" name="_subject" value="New smoothie subscriber 🥤">
-      <input type="hidden" name="_next" value="https://smoothie.thehappy-healthy-life.com/merci.html">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="Source" value="bridge-page-email-capture">
 
       <input type="text"  name="name"  placeholder="Your first name" required autocomplete="given-name">
       <input type="email" name="email" placeholder="Your best email address" required autocomplete="email">
