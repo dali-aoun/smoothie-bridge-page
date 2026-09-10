@@ -1,0 +1,17 @@
+name: Add coffee subdomain DNS
+on:
+  push:
+    branches: [master]
+    paths: ['.github/workflows/add-coffee-dns.yml']
+jobs:
+  add-cname:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create CNAME for coffee.thehappy-healthy-life.com
+        run: |
+          ZONE_ID="e99f2e3a5e0badf54c74d0164f1a1a9d"
+          curl -s -X POST "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records" \
+            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"type":"CNAME","name":"coffee","content":"javaburn-lander.pages.dev","proxied":true,"ttl":1}' \
+            | python3 -c "import json,sys; d=json.load(sys.stdin); print('success:',d.get('success')); [print('err:',e) for e in d.get('errors',[])]"
