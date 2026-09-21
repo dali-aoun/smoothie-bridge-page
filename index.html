@@ -129,19 +129,22 @@
       overflow: hidden;
       margin: 0 auto 2.5rem;
       max-width: 560px;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.22);
       cursor: pointer;
-      background: #0a0a0a;
+      background: #1a0f05;
     }
     .video-wrapper img {
       width: 100%;
       aspect-ratio: 16/9;
       object-fit: cover;
+      object-position: center 30%;
       transition: transform 0.4s ease;
-      opacity: 0.88;
+      opacity: 0.9;
+      display: block;
     }
     @media (max-width: 480px) {
-      .video-wrapper img { aspect-ratio: 4/3; }
+      .video-wrapper { border-radius: 10px; }
+      .video-wrapper img { aspect-ratio: 3/2; }
     }
     .video-wrapper:hover img { transform: scale(1.03); opacity: 1; }
     .play-btn {
@@ -477,6 +480,28 @@
     /* ─── MOBILE ──────────────────────────────── */
     @media (max-width: 480px) {
       .hooks, .email-section { padding: 1.25rem 1.1rem; }
+      .hero { padding: 2rem 1rem 1.5rem; }
+      .hero h1 { font-size: 1.75rem; }
+      .cta-primary { font-size: 0.98rem; padding: 0.9rem 1.25rem; }
+      .play-circle { width: 58px; height: 58px; }
+      .play-circle svg { width: 22px; height: 22px; }
+    }
+
+    /* ─── TABLET ──────────────────────────────── */
+    @media (min-width: 481px) and (max-width: 768px) {
+      :root { --max: 640px; }
+      .hero { padding: 2.5rem 1.5rem 2rem; }
+      .video-wrapper { max-width: 90%; }
+      .hooks, .email-section, .testimonials, .faq-list { max-width: 90%; }
+    }
+
+    /* ─── DESKTOP ─────────────────────────────── */
+    @media (min-width: 769px) {
+      :root { --max: 700px; }
+      .hero { padding: 4rem 2rem 2.5rem; }
+      .video-wrapper { max-width: 600px; }
+      .hooks, .email-section, .testimonials, .faq-list { max-width: 600px; }
+      .cta-primary { max-width: 520px; }
     }
   </style>
 </head>
@@ -499,11 +524,13 @@
      aria-label="Watch the free video presentation"
      onclick="gtag('event','video_click',{event_category:'cta',event_label:'hero_video'})">
     <img
-      src="https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=680&h=1210&fit=crop"
-      onerror="this.src='https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=680&h=1210&fit=crop'"
+      src="https://images.pexels.com/photos/3807571/pexels-photo-3807571.jpeg?auto=compress&cs=tinysrgb&w=800&h=450&fit=crop"
+      onerror="this.src='https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=800&h=450&fit=crop'"
       alt="Java Burn morning coffee metabolism video thumbnail"
       loading="eager"
-      fetchpriority="high">
+      fetchpriority="high"
+      width="800"
+      height="450">
     <div class="play-btn">
       <div class="play-circle">
         <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
