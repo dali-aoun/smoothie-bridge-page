@@ -20,7 +20,7 @@ export async function onRequestPost(context) {
       body: JSON.stringify({
         email: email.trim().toLowerCase(),
         firstName: name.trim(),
-        tags: ['coffee-leads'],
+        tags: ['smoothie-leads'],
       }),
     });
 
