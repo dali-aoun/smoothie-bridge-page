@@ -1,4 +1,4 @@
-const SYSTEME_TAG_ID = 2149789; // smoothie-leads â†’ Java Burn Email Sequence
+const SYSTEME_TAG_ID = 2149789; // smoothie-leads → Java Burn Email Sequence
 
 export async function onRequestPost(context) {
   const { request, env } = context;
@@ -18,17 +18,35 @@ export async function onRequestPost(context) {
       'Accept': 'application/json',
     };
 
-    // Step 1: create or update contact
-    const res = await fetch('https://api.systeme.io/api/contacts', {
+    let contactId = null;
+
+    // Step 1: create contact
+    const createRes = await fetch('https://api.systeme.io/api/contacts', {
       method: 'POST',
       headers,
       body: JSON.stringify({ email, firstName: name }),
     });
 
-    if (res.ok) {
-      const contact = await res.json();
-      // Step 2: add smoothie-leads tag (triggers Java Burn Email Sequence)
-      await fetch(`https://api.systeme.io/api/contacts/${contact.id}/tags`, {
+    if (createRes.ok) {
+      const contact = await createRes.json();
+      contactId = contact.id;
+    } else {
+      // Contact already exists (409) — look it up by email
+      const lookupRes = await fetch(
+        `https://api.systeme.io/api/contacts?email=${encodeURIComponent(email)}`,
+        { method: 'GET', headers }
+      );
+      if (lookupRes.ok) {
+        const data = await lookupRes.json();
+        if (data.items && data.items.length > 0) {
+          contactId = data.items[0].id;
+        }
+      }
+    }
+
+    // Step 2: add tag (always, even for existing contacts)
+    if (contactId) {
+      await fetch(`https://api.systeme.io/api/contacts/${contactId}/tags`, {
         method: 'POST',
         headers,
         body: JSON.stringify({ tagId: SYSTEME_TAG_ID }),
@@ -36,7 +54,7 @@ export async function onRequestPost(context) {
     }
 
   } catch (_) {
-    // silent â€” always redirect
+    // silent — always redirect
   }
 
   return Response.redirect(new URL('/merci.html', request.url).toString(), 302);
