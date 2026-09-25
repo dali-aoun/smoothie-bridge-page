@@ -1,4 +1,4 @@
-const SYSTEME_TAG_ID = 2149789; // smoothie-leads → Java Burn Email Sequence
+const SYSTEME_TAG_ID = 2149789; // coffee-leads (Java Burn funnel)
 
 export async function onRequestPost(context) {
   const { request, env } = context;
